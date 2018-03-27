@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Point, Item, Dossier } from "../point";
+import { Point, Item, Note, Dossier } from "../point";
 import { ItemService } from '../item.service';
 
+interface Selections {
+  item: Item;
+  selected: boolean;
+}
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -11,9 +15,9 @@ export class MapComponent {
 
   pathMode = false;
 
-  path: any[];
-  notes: Item[];
-  dossiers: Dossier[];
+  path: Selections[];
+  notes: Selections[];
+  dossiers: Selections[];
   constructor(private itemService: ItemService) {
     this.path = [];
     this.getNotes();
@@ -23,15 +27,26 @@ export class MapComponent {
   public getPath() {
     let pathString = "";
     this.path.forEach((element) => {
-      pathString += element.coords.lon + ',' + element.coords.lat + ' ';
+      pathString += element.item.coords.lon + ',' + element.item.coords.lat + ' ';
     });
     return pathString;
+  }
+  public toggleSelect(item: Selections) {
+    let index = this.path.indexOf(item);
+    if(index !== -1) {
+      this.path.splice(index, 1);
+      item.selected = false;
+    }
+    else {
+      item.selected = true;
+      this.path.push(item);
+    }
   }
   public getHeading(index: number): string {
     let next = index + 1;
     if(next < this.path.length) {
-      let y = this.path[next].coords.lon - this.path[index].coords.lon;
-      let x = this.path[next].coords.lat - this.path[index].coords.lat;
+      let y = this.path[next].item.coords.lon - this.path[index].item.coords.lon;
+      let x = this.path[next].item.coords.lat - this.path[index].item.coords.lat;
       let angle = Math.atan2(y, x) * 180 / Math.PI;
       return this.compassHeading(angle);
     }
@@ -101,13 +116,15 @@ export class MapComponent {
     .subscribe(data => {
       this.notes = [];
       data.forEach(element => {
-        this.notes.push(new Item(
-          element.Author,
-          element.Type,
-          element.Number,
-          new Point(
-            element.Latitude, 
-            element.Longitude)));
+        this.notes.push({
+          item: new Note(
+            element.Author,
+            element.Type,
+            element.Number,
+            new Point(
+              element.Latitude, 
+              element.Longitude)),
+          selected: false});
       });
     });
   }
@@ -116,11 +133,13 @@ export class MapComponent {
     .subscribe(data => {
       this.dossiers = [];
       data.forEach(element => {
-        this.dossiers.push(new Dossier(
-          element.Name,
-          new Point(
-            element.Latitude, 
-            element.Longitude)));
+        this.dossiers.push({
+          item: new Dossier(
+            element.Name,
+            new Point(
+              element.Latitude, 
+              element.Longitude)),
+          selected: false});
       });
     });
   }

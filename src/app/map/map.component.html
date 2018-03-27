@@ -7,8 +7,9 @@
     *ngFor="let note of notes" 
     [attr.cx]="note.coords.lon.toFixed(1)" 
     [attr.cy]="note.coords.lat.toFixed(1)"
-    (click)="path.push(note)"
-    class="note">
+    (click)="toggleSelect(note)"
+    class="note"
+    [attr.class.selected]="note.selected">
     <title>{{ note.getTitle() }}</title>
   </circle>
   <circle 
@@ -16,7 +17,8 @@
     [attr.cx]="dossier.coords.lon.toFixed(1)"
     [attr.cy]="dossier.coords.lat.toFixed(1)"
     (click)="path.push(dossier)"
-    class="dossier">
+    class="toggleSelect(dossier)"
+    [attr.class.selected]="note.selected">
     <title>{{ dossier.getTitle() }}</title>
   </circle>
   </svg>

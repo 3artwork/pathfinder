@@ -22,21 +22,30 @@ export class Point {
   }
 }
 export class Item {
+  constructor(public coords: Point) {
+
+  }
+}
+export class Note extends Item {
   constructor(
     public author: string,
     public type: string, 
     public number: number,
     public coords: Point
-  ) {}
+  ) {
+    super(coords);
+  }
   public getTitle(): string {
     return this.author + ' ' + this.type.toLowerCase() + ' #' + this.number;
   };
 }
-export class Dossier {
+export class Dossier extends Item {
   constructor(
     public name: string, 
     public coords: Point
-  ) {}
+  ) {
+    super(coords);
+  }
   public getTitle(): string {
     return this.name + ' Dossier';
   }
