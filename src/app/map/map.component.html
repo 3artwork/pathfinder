@@ -1,0 +1,29 @@
+<ng-container *ngIf="!pathMode">
+  <svg version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"
+  viewBox="0, 0, 100, 100"
+  preserveAspectRatio>
+  <polyline [attr.points]="getPath()"/>
+  <circle 
+    *ngFor="let note of notes" 
+    [attr.cx]="note.coords.lon.toFixed(1)" 
+    [attr.cy]="note.coords.lat.toFixed(1)"
+    (click)="path.push(note)"
+    class="note">
+    <title>{{ note.getTitle() }}</title>
+  </circle>
+  <circle 
+    *ngFor="let dossier of dossiers"
+    [attr.cx]="dossier.coords.lon.toFixed(1)"
+    [attr.cy]="dossier.coords.lat.toFixed(1)"
+    (click)="path.push(dossier)"
+    class="dossier">
+    <title>{{ dossier.getTitle() }}</title>
+  </circle>
+  </svg>
+  <div class="directions">
+    <div *ngFor="let item of path; let i = index">
+      <div [class]="getClass(item)">{{ item.getTitle() }}<span>{{ item.coords.lat + ' - ' + item.coords.lon }}</span></div>
+      <div *ngIf="getHeading(i); let heading" class="heading">head<span>{{ heading }}</span></div>
+    </div>
+  </div>
+</ng-container>

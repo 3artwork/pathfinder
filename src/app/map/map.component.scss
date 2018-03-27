@@ -1,0 +1,65 @@
+$note-light: #d69c20;
+$note-dark: #856114;
+$dossier-light: #36b99d;
+$dossier-dark: #1d6354;
+
+#toggle {
+  position: absolute;
+  right:0;
+}
+svg {
+  max-height: 99vh;
+  max-width: 99vw;
+  circle {
+    cursor: pointer;
+    r: 0.5;
+    stroke-width: 0.1;
+    &.dossier {
+      fill: $dossier-light;
+      stroke: $dossier-dark;
+    }
+    &.note {
+      stroke: $note-dark;
+      fill: $note-light;
+    }
+  }
+  polyline {
+    fill: none;
+    stroke-width: .33;
+    stroke: #ff8a8a;
+    stroke-dasharray: 1;
+  }
+}
+.note {
+  background-color: $note-light;
+  span {
+    background-color: $note-dark;
+  }
+}
+.dossier {
+  background-color: $dossier-light;
+  span {
+    background-color: $dossier-dark;
+  }
+}
+.heading {
+  background-color: #adadad;
+  span {
+    background-color: #4a4a4a;
+  }
+}
+.directions div {
+  display: inline-block;
+  div {
+    display: inline-block;
+    margin: 2px;
+    padding: 5px;
+    border-radius: 3px;
+  }
+  span {
+    padding: 0 5px;
+    border-radius: 3px;
+    color: white;
+    margin-left: 5px;
+  }
+}
