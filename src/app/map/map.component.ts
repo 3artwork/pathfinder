@@ -45,69 +45,78 @@ export class MapComponent {
   public getHeading(index: number): string {
     let next = index + 1;
     if(next < this.path.length) {
-      let y = this.path[next].item.coords.lon - this.path[index].item.coords.lon;
-      let x = this.path[next].item.coords.lat - this.path[index].item.coords.lat;
-      let angle = Math.atan2(y, x) * 180 / Math.PI;
+      let x_1 = this.path[index].item.coords.lon;
+      let x_2 = this.path[next].item.coords.lon;
+      let y_1 = this.path[index].item.coords.lat;
+      let y_2 = this.path[next].item.coords.lat;
+      let diff_y = y_1 - y_2;
+      let diff_x = x_2 - x_1;
+      let angle = Math.atan2(diff_y, diff_x) * 180 / Math.PI;
+      if(angle < 0) angle += 360;
       return this.compassHeading(angle);
     }
     return null;
   }
   private compassHeading(angle) {
     let heading;
-    if(angle >= 303.75 || angle < 56.25) {
-      if(angle >= 348.75 || angle < 11.25) {
-        return 'N';
+    if(angle < 33.75 || angle >= 326.25) {
+      //W
+      if(angle < 11.25 || angle >= 348.75) {
+        return 'W';
       }
-      else if(angle < 33.75){
-        return 'NNE';
-      }
-      else if(angle < 56.25){
-        return 'NE';
-      }
-      else if(angle < 326.25){
-        return 'NW';
+      else if (angle < 33.75) {
+        return 'WNW';
       }
       else {
-        return 'NNW';
+        return 'WSW';
       }
     }
-    else if (angle < 123.75) {
-      if(angle < 78.75) {
-        return 'ENE';
+    else if (angle < 146.25) {
+      //N
+      if (angle >= 123.75) {
+        return 'NE';
       }
-      else if(angle < 101.25) {
+      else if (angle >= 101.25) {
+        return 'NNE';
+      }
+      else if (angle >= 78.75) {
+        return 'N';
+      }
+      else if (angle >= 56.25) {
+        return 'NNW';
+      }
+      else {
+        return 'NW';
+      }
+    }
+    else if (angle < 213.75) {
+      //E
+      if (angle >= 191.25) {
+        return 'ESE';
+      }
+      else if (angle >= 168.75) {
         return 'E';
       }
       else {
-        return 'ESE';
-      }
-    }
-    else if(angle < 236.25) {
-      if(angle < 146.25) {
-        return 'SE';
-      }
-      else if(angle < 168.75){
-        return 'SSE';
-      }
-      else if(angle < 191.25){
-        return 'S';
-      }
-      else if(angle < 213.75){
-        return 'SSW';
-      }
-      else {
-        return 'SW';
+        return 'ENE';
       }
     }
     else {
-      if(angle < 258.75) {
-        return 'WSW';
+      //S
+      if (angle >= 303.75) {
+        return 'SW';
       }
-      else if(angle < 281.25) {
-        return 'W';
+      else if (angle >= 281.25) {
+        return 'SSW';
+      }
+      else if (angle >= 258.75) {
+        return 'S';
+      }
+      else if (angle >= 236.25) {
+        return 'SSE'
       }
       else {
-        return 'WNW';
+        return 'SE'
       }
     }
   }
@@ -144,6 +153,6 @@ export class MapComponent {
     });
   }
   public getClass(target: any): string {
-    return target instanceof Item ? 'note' : 'dossier';
+    return target instanceof Note ? 'note' : 'dossier';
   }
 }

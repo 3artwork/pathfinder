@@ -2,7 +2,8 @@ $note-light: #d69c20;
 $note-dark: #856114;
 $dossier-light: #36b99d;
 $dossier-dark: #1d6354;
-
+$other-light: #adadad;
+$other-dark: #4a4a4a;
 #toggle {
   position: absolute;
   right:0;
@@ -14,13 +15,15 @@ svg {
     cursor: pointer;
     stroke-width: 0.1;
     r: 0.5;
-    &.dossier {
-      fill: $dossier-light;
-      stroke: $dossier-dark;
+    fill: $other-light;
+    stroke: $other-dark;
+    &.dossier:hover, &.dossier.selected {
+      fill: $dossier-light !important;
+      stroke: $dossier-dark !important;
     }
-    &.note {
-      stroke: $note-dark;
-      fill: $note-light;
+    &.note:hover, &.note.selected {
+      stroke: $note-dark !important;
+      fill: $note-light !important;
     }
     &.selected {
       r: 0.75 !important;
@@ -46,9 +49,9 @@ svg {
   }
 }
 .heading {
-  background-color: #adadad;
+  background-color: $other-light;
   span {
-    background-color: #4a4a4a;
+    background-color: $other-dark;
   }
 }
 .directions div {
