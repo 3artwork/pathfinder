@@ -11,12 +11,15 @@ var config = {
     database: 'Experiments'
 }
 
-router.get('/getNotes', (req, res) => {
+router.post('/getNotes', (req, res) => {
   console.log("Getting Notes");
+  let q = "SELECT Author, Type, Number, Latitude, Longitude FROM Notes";
+  if(req.body.subsurface === false)
+        q += " WHERE Subsurface = 'FALSE'";
   const pool = new sql.ConnectionPool(config);
   pool.connect().then(() => {
       let request = new sql.Request(pool);
-      request.query("SELECT Author, Type, Number, Latitude, Longitude FROM Notes")
+      request.query(q)
         .then((response) => {
           res.send(response.recordset);
           pool.close();
@@ -29,12 +32,15 @@ router.get('/getNotes', (req, res) => {
     });
 });
 
-router.get('/getDossiers', (req, res) => {
+router.post('/getDossiers', (req, res) => {
   console.log("Getting Dossiers");
+  let q = "SELECT Name, Latitude, Longitude FROM Dossiers";
+  if(req.body.subsurface === false)
+    q += " WHERE Subsurface = 'FALSE'";
   const pool = new sql.ConnectionPool(config);
   pool.connect().then(() => {
       let request = new sql.Request(pool);
-      request.query("SELECT Name, Latitude, Longitude FROM Dossiers")
+      request.query(q)
         .then((response) => {
           res.send(response.recordset);
           pool.close();

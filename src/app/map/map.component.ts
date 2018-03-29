@@ -12,9 +12,7 @@ interface Selections {
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent {
-
-  pathMode = false;
-
+  subsurface = false;
   path: Selections[];
   notes: Selections[];
   dossiers: Selections[];
@@ -121,7 +119,7 @@ export class MapComponent {
     }
   }
   public getNotes() {
-    this.itemService.getNotes()
+    this.itemService.getNotes(this.subsurface)
     .subscribe(data => {
       this.notes = [];
       data.forEach(element => {
@@ -138,7 +136,7 @@ export class MapComponent {
     });
   }
   public getDossiers() {
-    this.itemService.getDossiers()
+    this.itemService.getDossiers(this.subsurface)
     .subscribe(data => {
       this.dossiers = [];
       data.forEach(element => {

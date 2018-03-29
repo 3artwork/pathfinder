@@ -7,10 +7,10 @@ export class ItemService {
 
   constructor(private http: Http) { }
 
-  getNotes() {
-    return this.http.get('/api/getNotes').map((res: Response) => res.json());
+  getNotes(subsurface: boolean) {
+    return this.http.post('/api/getNotes', {'subsurface': subsurface }).map((res: Response) => res.json());
   }
-  getDossiers() {
-    return this.http.get('/api/getDossiers').map((res: Response) => res.json());
+  getDossiers(subsurface: boolean) {
+    return this.http.post('/api/getDossiers', {'subsurface': subsurface }).map((res: Response) => res.json());
   }
 }

@@ -31,9 +31,16 @@ svg {
   }
   polyline {
     fill: none;
-    stroke-width: .33;
-    stroke: #ff8a8a;
+    stroke-width: 0.33;
     stroke-dasharray: 1;
+    stroke-opacity: 0.75;
+    &.dashed {
+      stroke: red;
+    }
+    &.solid {
+      stroke-dashoffset: 1;
+      stroke: white;
+    }
   }
 }
 .note {

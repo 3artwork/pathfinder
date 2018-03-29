@@ -3,7 +3,8 @@
   viewBox="0, 0, 100, 100"
   preserveAspectRatio>
     <image xlink:href="../assets/TheIsland_ext.jpg" x="0" y="0" height="100%" width="100%"/>
-    <polyline [attr.points]="getPath()"/>
+    <polyline class="solid" [attr.points]="getPath()"/>
+    <polyline class="dashed" [attr.points]="getPath()"/>
     <circle 
       *ngFor="let note of notes" 
       [attr.cx]="note.item.coords.lon.toFixed(1)" 
