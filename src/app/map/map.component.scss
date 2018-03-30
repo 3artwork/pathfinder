@@ -4,13 +4,29 @@ $dossier-light: #36b99d;
 $dossier-dark: #1d6354;
 $other-light: #adadad;
 $other-dark: #4a4a4a;
+.view {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  overflow-y: auto;
+  .directions {
+    max-width: 50%;
+    min-width: 346px;
+  }
+  .svg {    
+    width: 100%;
+    margin-bottom: 10px;
+    position:relative;
+  }
+}
 #toggle {
   position: absolute;
   right:0;
 }
 svg {
-  max-height: 99vh;
-  max-width: 99vw;
+  width: 100%;
+  position: absolute;
   circle {
     cursor: pointer;
     stroke-width: 0.1;
@@ -33,13 +49,14 @@ svg {
     fill: none;
     stroke-width: 0.33;
     stroke-dasharray: 1;
-    stroke-opacity: 0.75;
+    stroke: white;
     &.dashed {
-      stroke: red;
+      mix-blend-mode: exclusion;
+      stroke-opacity: .5;
     }
     &.solid {
       stroke-dashoffset: 1;
-      stroke: white;
+      mix-blend-mode: overlay;
     }
   }
 }
@@ -61,8 +78,7 @@ svg {
     background-color: $other-dark;
   }
 }
-.directions div {
-  display: inline-block;
+.directions > div {
   div {
     display: inline-block;
     margin: 2px;

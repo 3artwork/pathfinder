@@ -1,33 +1,37 @@
 <ng-container *ngIf="!pathMode">
-  <svg version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"
-  viewBox="0, 0, 100, 100"
-  preserveAspectRatio>
-    <image xlink:href="../assets/TheIsland_ext.jpg" x="0" y="0" height="100%" width="100%"/>
-    <polyline class="solid" [attr.points]="getPath()"/>
-    <polyline class="dashed" [attr.points]="getPath()"/>
-    <circle 
-      *ngFor="let note of notes" 
-      [attr.cx]="note.item.coords.lon.toFixed(1)" 
-      [attr.cy]="note.item.coords.lat.toFixed(1)"
-      (click)="toggleSelect(note)"
-      class="note"
-      [class.selected]="note.selected">
-      <title>{{ note.item.getTitle() }}</title>
-    </circle>
-    <circle 
-      *ngFor="let dossier of dossiers"
-      [attr.cx]="dossier.item.coords.lon.toFixed(1)"
-      [attr.cy]="dossier.item.coords.lat.toFixed(1)"
-      (click)="toggleSelect(dossier)"
-      class="dossier"
-      [class.selected]="dossier.selected">
-      <title>{{ dossier.item.getTitle() }}</title>
-    </circle>
-  </svg>
-  <div class="directions">
-    <div *ngFor="let spot of path; let i = index">
-      <div [class]="getClass(spot.item)">{{ spot.item.getTitle() }}<span>{{ spot.item.coords.lat + ' - ' + spot.item.coords.lon }}</span></div>
-      <div *ngIf="getHeading(i); let heading" class="heading">head<span>{{ heading }}</span></div>
+  <div class="view">
+    <div class="directions">
+      <div *ngFor="let spot of path; let i = index">
+        <div [class]="getClass(spot.item)">{{ spot.item.getTitle() }}<span>{{ spot.item.coords.lat + ' - ' + spot.item.coords.lon }}</span></div>
+        <div *ngIf="getHeading(i); let heading" class="heading">head<span>{{ heading }}</span></div>
+      </div>
+    </div>
+    <div class="svg">
+      <svg version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"
+      viewBox="0, 0, 100, 100"
+      preserveAspectRatio>
+        <image xlink:href="../assets/TheIsland_ext.jpg" x="0" y="0" height="100%" width="100%"/>
+        <polyline class="solid" [attr.points]="getPath()"/>
+        <polyline class="dashed" [attr.points]="getPath()"/>
+        <circle 
+          *ngFor="let note of notes" 
+          [attr.cx]="note.item.coords.lon.toFixed(1)" 
+          [attr.cy]="note.item.coords.lat.toFixed(1)"
+          (click)="toggleSelect(note)"
+          class="note"
+          [class.selected]="note.selected">
+          <title>{{ note.item.getTitle() }}</title>
+        </circle>
+        <circle 
+          *ngFor="let dossier of dossiers"
+          [attr.cx]="dossier.item.coords.lon.toFixed(1)"
+          [attr.cy]="dossier.item.coords.lat.toFixed(1)"
+          (click)="toggleSelect(dossier)"
+          class="dossier"
+          [class.selected]="dossier.selected">
+          <title>{{ dossier.item.getTitle() }}</title>
+        </circle>
+      </svg>
     </div>
   </div>
 </ng-container>
