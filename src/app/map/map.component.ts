@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Point, Item, Note, Dossier } from "../point";
 import { ItemService } from '../item.service';
 

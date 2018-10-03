@@ -7,7 +7,7 @@ const sql = require('mssql');
 var config = {
     user: 'fetcher',
     password: 'password1',
-    server: 'localhost\\SQL2014',
+    server: 'localhost\\SQL2016',
     database: 'Experiments'
 }
 
